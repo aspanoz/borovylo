@@ -1,13 +1,13 @@
 # Расширение для reaper
 
 ## Requirement
-* brew install wget
+  * Install cabl librirary https://github.com/shaduzlabs/cabl.git
 
 ## Installation
 
 * git clone xxx
 * cd <PROJECT_NAME>
-* git submodule update --init --recursive
+* git submodule update --init
 **** mkdir build && cd build
 * cmake ..
 * make
