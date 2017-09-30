@@ -1,0 +1,6 @@
+[submodule "modules/WDL"]
+	path = modules/WDL
+	url = https://github.com/justinfrankel/WDL.git
+[submodule "modules/MacOSX-SDKs"]
+	path = modules/MacOSX-SDKs
+	url = https://github.com/phracker/MacOSX-SDKs
