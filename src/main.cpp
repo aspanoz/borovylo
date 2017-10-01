@@ -12,6 +12,13 @@
 #define REAPERAPI_IMPLEMENT
 #include "reaper_plugin/reaper_plugin_functions.h"
 
+#include "cablDevice/deviceFeedback.h"
+
+using namespace sl;
+using namespace sl::cabl;
+
+DeviceFeedback deviceFeedback;
+
 int g_registered_command01 = 0;
 int g_registered_command02 = 0;
 
