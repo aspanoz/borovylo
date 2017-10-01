@@ -29,7 +29,12 @@ configure_file(
 
 
 ############################# BUILD ###############################
-SET(SOURCES src/main.cpp)
+add_subdirectory(src/cablDevice)
+
+SET(SOURCES
+  src/main.cpp
+  ${CABL_DEVICE_SOURCE}
+)
 
 add_library(${PROJECT_NAME} SHARED ${SOURCES} ${CMAKE_CURRENT_BINARY_DIR}/version.rc)
 
@@ -46,4 +51,12 @@ include_directories(${WDL_INCLUDE}/reaper)
 include_directories(${LOCAL_DIR}/include)
 link_directories(${LOCAL_DIR}/lib)
 
+target_include_directories(${PROJECT_NAME} PRIVATE ${LOCAL_DIR}/include )
+target_link_libraries(${PROJECT_NAME} PRIVATE ${LOCAL_DIR}/lib/libcabl.dylib)
 
+find_library(CABL_LIBRARY cabl)
+
+if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+  link_libraries(${PROJECT_NAME} PUBLIC "-framework CoreFoundation" "-framework IOKit")
+  link_libraries(${PROJECT_NAME} PUBLIC "-framework CoreAudio" "-framework CoreMIDI" objc)
+endif(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
