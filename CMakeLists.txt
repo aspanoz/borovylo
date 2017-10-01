@@ -29,11 +29,11 @@ configure_file(
 
 
 ############################# BUILD ###############################
-add_subdirectory(src/cablDevice)
 
 SET(SOURCES
   src/main.cpp
-  ${CABL_DEVICE_SOURCE}
+  src/cablDevice/deviceFeedback.h
+  src/cablDevice/deviceFeedback.cpp
 )
 
 add_library(${PROJECT_NAME} SHARED ${SOURCES} ${CMAKE_CURRENT_BINARY_DIR}/version.rc)
