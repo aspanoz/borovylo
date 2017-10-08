@@ -1,2 +1,11 @@
 # Build directory
 build
+
+# Node modules
+node_modules
+
+# compile file for chromatica smart c++ syntax vim plugin 
+compile_commands.json
+
+# neovim local config file
+.lvimrc

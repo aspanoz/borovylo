@@ -1,0 +1,28 @@
+{
+  "name": "borovylo",
+  "version": "0.1.5",
+  "description": "Test sabdbox for C++",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npm run gulp --scripts-prepend-node-path",
+    "gulp": "./node_modules/gulp/bin/gulp.js auto-reload --task default"
+  },
+  "author": "Konstantine Glukhov",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-plugin-transform-es2015-arrow-functions": "^6.22.0",
+    "babel-plugin-transform-es2015-block-scoping": "^6.26.0",
+    "babel-plugin-transform-es2015-classes": "^6.24.1",
+    "babel-preset-env": "^1.6.0",
+    "child_process": "^1.0.2",
+    "chokidar": "^1.7.0",
+    "gulp": "github:gulpjs/gulp#4.0",
+    "gulp-babel": "^7.0.0",
+    "gulp-replace": "^0.6.1",
+    "yargs": "^9.0.1"
+  },
+  "optionalDependencies": {},
+  "dependencies": {}
+}

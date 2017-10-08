@@ -19,11 +19,15 @@ set(FPLUS_INCLUDE_DIRS ${PROJECT_MODULES_DIR}/fplus/include )
 set(MACH7_INCLUDE_DIRS ${PROJECT_MODULES_DIR}/Mach7/code )
 set(LOCAL_DIR /usr/local)
 
+# Include cmake/reaper_plugin.cmake, copy reaper_plugin headers
+include(reaper_plugin)
+
 set(ALL_INCLUDE_SOURCE
   ${LOCAL_DIR}/include
   ${FPLUS_INCLUDE_DIRS}
   ${MACH7_INCLUDE_DIRS}
   ${WDL_INCLUDE}
+  ${WDL_INCLUDE}/reaper
   ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
@@ -46,9 +50,6 @@ SET(SOURCES src/main.cpp)
 add_library(${PROJECT_NAME} SHARED ${SOURCES} ${CMAKE_CURRENT_BINARY_DIR}/version.rc)
 
 ############################ INCLUDE ##############################
-# Include cmake/reaper_plugin.cmake, copy reaper_plugin headers
-include(reaper_plugin)
-
 target_include_directories(${PROJECT_NAME} PRIVATE ${ALL_INCLUDE_SOURCE})
 
 # Add /usr/local path for libs
