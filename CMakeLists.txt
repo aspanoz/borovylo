@@ -1,6 +1,6 @@
 ############################# DEFINE ##############################
 cmake_minimum_required(VERSION 3.2 FATAL_ERROR)
-project(reaper_controller)
+project(reaper_borovylo)
 
 # Define C standart
 set(CMAKE_CXX_STANDARD 17)
@@ -12,7 +12,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake")
 
 # Define paths
-set(ROOT ${CMAKE_CURRENT_LIST_DIR})
+set(ROOT ${CMAKE_CURRENT_SOURCE_DIR})
 set(PROJECT_MODULES_DIR ${ROOT}/modules)
 set(WDL_INCLUDE ${PROJECT_MODULES_DIR}/WDL)
 set(FPLUS_INCLUDE_DIRS ${PROJECT_MODULES_DIR}/fplus/include )
@@ -28,13 +28,13 @@ set(ALL_INCLUDE_SOURCE
   ${MACH7_INCLUDE_DIRS}
   ${WDL_INCLUDE}
   ${WDL_INCLUDE}/reaper
-  ${CMAKE_CURRENT_SOURCE_DIR}/src
+  ${ROOT}/src
 )
 
 # Set extension version
 set(MY_PRODUCT_NUMBER 0)
-set(MY_PRODUCT_VERSION 0)
-set(MY_BUILD_NUMBER 4)
+set(MY_PRODUCT_VERSION 1)
+set(MY_BUILD_NUMBER 0)
 
 ############################ CONFIGURE ############################
 # Generate version.rc file
@@ -45,7 +45,10 @@ configure_file(
 )
 
 ############################# BUILD ###############################
-SET(SOURCES src/main.cpp)
+SET(SOURCES
+  src/main.cpp
+  src/csurf_cabl.cpp
+)
 
 add_library(${PROJECT_NAME} SHARED ${SOURCES} ${CMAKE_CURRENT_BINARY_DIR}/version.rc)
 
