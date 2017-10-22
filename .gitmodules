@@ -10,3 +10,6 @@
 [submodule "modules/Mach7"]
 	path = modules/Mach7
 	url = https://github.com/solodon4/Mach7.git
+[submodule "modules/json"]
+	path = modules/json
+	url = https://github.com/nlohmann/json.git
