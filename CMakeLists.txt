@@ -28,11 +28,11 @@ include(reaper_plugin)
 
 set(ALL_INCLUDE_SOURCE
   ${LOCAL_DIR}/include
-  ${JSON_INCLUDE_DIRS}
-  ${FPLUS_INCLUDE_DIRS}
-  # ${MACH7_INCLUDE_DIRS}
-  ${WDL_INCLUDE}
-  ${WDL_INCLUDE}/reaper
+  ${JSON_INCLUDE_DIRS}      # json modern library for C++
+  ${FPLUS_INCLUDE_DIRS}     # functional programing library
+  # ${MACH7_INCLUDE_DIRS}   # pattern matching for C++
+  ${WDL_INCLUDE}            # reaper WDL library
+  ${WDL_INCLUDE}/reaper     # reaper API functions headers
   ${ROOT}/src
 )
 
@@ -58,13 +58,13 @@ SET(SOURCES
 add_library(${PROJECT_NAME} SHARED ${SOURCES} ${CMAKE_CURRENT_BINARY_DIR}/version.rc)
 
 ############################ INCLUDE ##############################
+find_library(CABL_LIBRARY cabl)
+
 target_include_directories(${PROJECT_NAME} PRIVATE ${ALL_INCLUDE_SOURCE})
 
-find_package(Boost COMPONENTS system filesystem REQUIRED)
-target_link_libraries(${PROJECT_NAME} 
-  ${Boost_FILESYSTEM_LIBRARY}
-  ${Boost_SYSTEM_LIBRARY}
+# find_package(Boost COMPONENTS system filesystem REQUIRED)
+target_link_libraries(${PROJECT_NAME} PUBLIC
+  # ${Boost_FILESYSTEM_LIBRARY}     # for filesystem opertions
+  # ${Boost_SYSTEM_LIBRARY}
+  ${CABL_LIBRARY}
 )
-
-# Add /usr/local path for libs
-link_directories(${LOCAL_DIR}/lib)
