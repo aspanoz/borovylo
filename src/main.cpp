@@ -13,7 +13,7 @@ HWND g_hwnd;
  */
 static IReaperControlSurface *createFunc(const char *type_string, const char *configString, int *errStats)
 {
-  return new CSurf_Borovylo();
+  return new BorovyloCSurf();
 }
 
 
@@ -22,7 +22,7 @@ static IReaperControlSurface *createFunc(const char *type_string, const char *co
  */
 static HWND configFunc(const char *type_string, HWND parent, const char *initConfigString)
 {
-  // @TODO: build WDL/swell
+  // no WDL/swell, no config
   return 0;
 }
 
@@ -52,7 +52,6 @@ extern "C"
     // load Reaper API functions
     if (REAPERAPI_LoadAPI(rec->GetFunc) > 0)
       return 0;
-
 
     g_hInst = hInstance;
     g_hwnd = rec->hwnd_main;
