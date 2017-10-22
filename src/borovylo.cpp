@@ -3,7 +3,7 @@
 #include <fplus/fplus.hpp>
 #include <json.hpp>
 
-#include "csurf_cabl.h"
+#include "borovylo.h"
 
 #define CONFIG "/Scripts/Aspanoz/package.json"
 
@@ -44,7 +44,13 @@ nlohmann::json loadJSONConfig(const char *filename)
 }
 
 
-void BorovyloCSurf::SetTrackListChange()
+void Borovylo::onCablDeviceButton(std::string message)
+{
+  reaperConsoleMessage(message);
+}
+
+
+void Borovylo::SetTrackListChange()
 {
   reaperConsoleMessage("called by host then change track list view");
 
@@ -57,52 +63,41 @@ void BorovyloCSurf::SetTrackListChange()
 }
 
 
-BorovyloCSurf::BorovyloCSurf()
+Borovylo::Borovylo()
 {
   // constructor
   JSONConfig = loadJSONConfig(CONFIG);
-
-  m_midiin0 = CreateMIDIInput(0);
-  if (m_midiin0)
-      m_midiin0->start();
-  // m_midiout0 = CreateMIDIOutput(0, false, NULL);
+  cablDevice = new CablDevice(this);
 }
 
 
-BorovyloCSurf::~BorovyloCSurf()
+Borovylo::~Borovylo()
 {
   // destructor
-  delete m_midiin0;
-  delete m_midiout0;
+  // delete cablDevice;
 }
 
 
-void BorovyloCSurf::Run()
+void Borovylo::Run()
 {
   // called by host 30x/sec or so.
 }
 
 
-void BorovyloCSurf::OnMIDIEvent0(MIDI_event_t *evt)
-{
-  // m_midiout0->SendMsg(evt, 0);
-}
-
-
-const char *BorovyloCSurf::GetTypeString()
+const char *Borovylo::GetTypeString()
 {
   return "BOROVYLO";
 }
 
 
-const char *BorovyloCSurf::GetDescString()
+const char *Borovylo::GetDescString()
 {
   descspace.Set("Borovylo Surface Control");
   return descspace.Get();
 }
 
 
-const char *BorovyloCSurf::GetConfigString()
+const char *Borovylo::GetConfigString()
 {
   sprintf(configtmp,"0 0");
   return configtmp;

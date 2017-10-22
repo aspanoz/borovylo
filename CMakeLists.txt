@@ -52,7 +52,8 @@ configure_file(
 ############################# BUILD ###############################
 SET(SOURCES
   src/main.cpp
-  src/csurf_cabl.cpp
+  src/borovylo.cpp
+  src/cabl_device.cpp
 )
 
 add_library(${PROJECT_NAME} SHARED ${SOURCES} ${CMAKE_CURRENT_BINARY_DIR}/version.rc)

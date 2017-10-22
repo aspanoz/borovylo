@@ -3,17 +3,17 @@
 
 #include <reaper_plugin/reaper_plugin_functions.h>
 
-#include "csurf_cabl.h"
+#include "borovylo.h"
 
 REAPER_PLUGIN_HINSTANCE g_hInst;
 HWND g_hwnd;
 
 /*
- * Entry point to reaper csurf 
+ * Entry point to reaper csurf
  */
 static IReaperControlSurface *createFunc(const char *type_string, const char *configString, int *errStats)
 {
-  return new BorovyloCSurf();
+  return new Borovylo();
 }
 
 
