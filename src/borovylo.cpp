@@ -1,4 +1,6 @@
 #include <sys/timeb.h>
+#include <memory>
+#include <thread>
 
 #include <fplus/fplus.hpp>
 #include <json.hpp>
@@ -9,13 +11,6 @@
 
 extern REAPER_PLUGIN_HINSTANCE g_hInst;
 extern HWND g_hwnd;
-
-
-auto reaperConsoleMessage = [](std::string str){
-  ShowConsoleMsg(
-    str.append("\n").c_str()
-  ); 
-};
 
 
 nlohmann::json loadJSONConfig(const char *filename)
@@ -35,7 +30,7 @@ nlohmann::json loadJSONConfig(const char *filename)
     GetResourcePath(),             // reaper function. path to reaper resource
     curredStringAppend(filename),  // create absolute config file path
     [](auto path){
-      return fplus::read_text_file(path)();
+      return fplus::read_text_file(path)(); // read config file
     },
     [](auto str){
       return nlohmann::json::parse(str);  // parse json string
@@ -44,35 +39,62 @@ nlohmann::json loadJSONConfig(const char *filename)
 }
 
 
-void Borovylo::onCablDeviceButton(std::string message)
+auto Borovylo::getStateControl(int id)
 {
-  reaperConsoleMessage(message);
+  return [=](std::string name){
+    return state[id].getValue(name);
+  };
+}
+
+
+void Borovylo::execAction(int id)
+{
+  // @TODO make it with maybe
+  if (fplus::map_contains(state, id))
+    fplus::fwd::apply(
+      getStateControl(id),
+      [=](auto control){ Main_OnCommandEx(control("commandId"), 0, NULL); }
+    );
+}
+
+
+void Borovylo::onCablDeviceButton(int id)
+{
+  std::cout << "onCablDeviceButton get id: " << id << '\n';
+
+  std::thread thr(&Borovylo::execAction, this, id); // exec action in detached thread
+  thr.detach();
+}
+
+
+Borovylo::Borovylo()
+: cablDevice(NULL)
+{
+  // constructor
+  state = initState();
+  cablDevice = new CablDevice(this);
 }
 
 
 void Borovylo::SetTrackListChange()
 {
-  reaperConsoleMessage("called by host then change track list view");
-
-  /*
-   * reaperConsoleMessage("Read json config file");
-   * auto action1 = JSONConfig["/button1"_json_pointer];
-   * reaperConsoleMessage(action1);
-   */
-
+  // reaperConsoleMessage("called by host then change track list view");
+  // M_LOG("[Borovylo] SetTrackListChange");
 }
 
 
-Borovylo::Borovylo()
+Store Borovylo::initState()
 {
-  // constructor
-  JSONConfig = loadJSONConfig(CONFIG);
-  cablDevice = new CablDevice(this);
+  Store store;  
+  for (nlohmann::json j : loadJSONConfig(CONFIG))
+    store[j["deviceKey"]].json = j;
+  return store;
 }
 
 
 Borovylo::~Borovylo()
 {
+  M_LOG("[Borovylo] destructor");
   // destructor
   // delete cablDevice;
 }
