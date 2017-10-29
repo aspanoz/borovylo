@@ -1,7 +1,4 @@
 # Copy reaper_plugin.h and reaper_plugin_functions.h from https://github.com/nvaccess/osara
-
-message("-- [cmake] Copy reaper_plugin headers from osara git submodule")
-
 set(REAPER_PLUGIN_DIRS ${WDL_INCLUDE}/reaper/reaper_plugin)
 set(OSARA_INCLUDE ${PROJECT_MODULES_DIR}/osara/include/reaper)
 

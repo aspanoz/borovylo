@@ -11,3 +11,7 @@
 **** mkdir build && cd build
 * cmake ..
 * make
+
+## Automation build 
+* npm install
+* npm start

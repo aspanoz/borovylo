@@ -4,3 +4,15 @@
 [submodule "modules/osara"]
 	path = modules/osara
 	url = https://github.com/nvaccess/osara
+[submodule "modules/fplus"]
+	path = modules/fplus
+	url = https://github.com/Dobiasd/FunctionalPlus
+[submodule "modules/Mach7"]
+	path = modules/Mach7
+	url = https://github.com/solodon4/Mach7.git
+[submodule "modules/json"]
+	path = modules/json
+	url = https://github.com/nlohmann/json.git
+[submodule "modules/cabl"]
+	path = modules/cabl
+	url = https://github.com/shaduzlabs/cabl.git
